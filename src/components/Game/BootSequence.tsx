@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { soundManager } from '../../services/sound';
 import { motion, AnimatePresence } from 'motion/react';
-import { Loader2 } from 'lucide-react';
 
 interface BootSequenceProps {
     onComplete: () => void;

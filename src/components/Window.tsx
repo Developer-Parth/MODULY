@@ -43,7 +43,6 @@ function WindowComponent({
   isFocused,
   bounds,
 }: WindowProps) {
-  const { titleBarBackground, accentColor } = useThemeColors();
   const { disableShadows, reduceMotion, blurEnabled, gpuEnabled } = useAppContext();
   const { t } = useI18n();
   const appConfig = getApp(window.type);

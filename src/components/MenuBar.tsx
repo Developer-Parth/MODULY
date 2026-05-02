@@ -34,7 +34,6 @@ interface MenuBarProps {
 }
 
 function MenuBarComponent({ focusedApp, onOpenApp }: MenuBarProps) {
-  const { menuBarBackground, blurStyle, getBackgroundColor } = useThemeColors();
   const { disableShadows, setIsLocked, locale, timeMode, setTimeMode } = useAppContext();
   const { logout, suspendSession, currentUser } = useFileSystem();
   const { t } = useI18n();

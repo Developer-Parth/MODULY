@@ -20,8 +20,7 @@ interface DockProps {
 
 function DockComponent({ onOpenApp, onRestoreWindow, onFocusWindow, windows }: DockProps) {
   const { t } = useI18n();
-  const { dockBackground, blurStyle, getBackgroundColor } = useThemeColors();
-  const { reduceMotion, disableShadows, disableGradients, accentColor, devMode } = useAppContext();
+  const { reduceMotion, disableShadows, devMode } = useAppContext();
   const { getNodeAtPath, homePath, installedApps } = useFileSystem();
 
   const trashNode = getNodeAtPath(`${homePath}/.Trash`);
