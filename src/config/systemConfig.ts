@@ -1,6 +1,6 @@
 import nebulaWallpaper from '@/assets/images/wallpaper-nebula.avif';
 import cityWallpaper from '@/assets/images/wallpaper-city.avif';
-import relicWallpaper from '@/assets/images/wallpaper-aurora.avif';
+import relicWallpaper from '@/assets/images/wallpaper-moduly.avif';
 import lakeWallpaper from '@/assets/images/wallpaper-lake.avif';
 import modiWallpaper from '@/assets/images/images.jpeg';
 

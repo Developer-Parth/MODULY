@@ -27,7 +27,7 @@ import { FolderOpen, Trash2, Clipboard, Image as ImageIcon, Scissors, Copy, Info
 import { notify } from '@/services/notifications';
 import defaultWallpaper from '@/assets/images/images.jpeg';
 import cityWallpaper from '@/assets/images/wallpaper-city.avif';
-import relicWallpaper from '@/assets/images/wallpaper-aurora.avif';
+import relicWallpaper from '@/assets/images/wallpaper-moduly.avif';
 import lakeWallpaper from '@/assets/images/wallpaper-lake.avif';
 import nebulaWallpaper from '@/assets/images/wallpaper-nebula.avif';
 
@@ -66,49 +66,49 @@ function DesktopComponent({ onDoubleClick, icons, onUpdateIconsPositions, onIcon
 
   // Helpers
   const handleCopy = (id: string) => {
-      copyNodes([id], activeUser);
+    copyNodes([id], activeUser);
   };
 
   const handleCut = (id: string) => {
-      cutNodes([id], activeUser);
+    cutNodes([id], activeUser);
   };
 
 
 
   const handleMoveToTrash = (name: string) => {
-      const fullPath = resolvePath(`~/Desktop/${name}`);
-      moveToTrash(fullPath, activeUser);
+    const fullPath = resolvePath(`~/Desktop/${name}`);
+    moveToTrash(fullPath, activeUser);
   };
 
   const handleGetInfo = (name: string) => {
-      const fullPath = resolvePath(`~/Desktop/${name}`);
-      const node = getNodeAtPath(fullPath, activeUser);
-       if (node) {
-           const modDate = node.modified ? new Date(node.modified).toLocaleDateString() : t('a11y.common.notAvailable');
-           const details = (
-               <div className="flex flex-col gap-1 mt-1">
-                   <div className="grid grid-cols-[max-content_1fr] gap-x-2">
-                       <span className="text-white/50">{t('fileManager.details.type')}:</span>
-                       <span className="text-white/90">{node.type}</span>
-                       <span className="text-white/50">{t('fileManager.details.owner')}:</span>
-                       <span className="text-white/90">{node.owner}</span>
-                       <span className="text-white/50">{t('fileManager.details.permissions')}:</span>
-                       <span className="text-white/90 font-mono text-[11px]">{node.permissions || t('a11y.common.notAvailable')}</span>
-                       <span className="text-white/50">{t('fileManager.details.modified')}:</span>
-                       <span className="text-white/90">{modDate}</span>
-                       {node.size !== undefined && (
-                           <>
-                               <span className="text-white/50">{t('fileManager.details.size')}:</span>
-                               <span className="text-white/90">{t('fileManager.details.bytes', { count: node.size })}</span>
-                           </>
-                       )}
-                   </div>
-               </div>
-           );
-           notify.system('success', node.name || t('notifications.subtitles.info'), details, t('notifications.subtitles.info'));
-       } else {
-           notify.system('error', t('notifications.subtitles.error'), t('fileManager.toasts.couldNotGetInfo'), t('notifications.subtitles.error'));
-       }
+    const fullPath = resolvePath(`~/Desktop/${name}`);
+    const node = getNodeAtPath(fullPath, activeUser);
+    if (node) {
+      const modDate = node.modified ? new Date(node.modified).toLocaleDateString() : t('a11y.common.notAvailable');
+      const details = (
+        <div className="flex flex-col gap-1 mt-1">
+          <div className="grid grid-cols-[max-content_1fr] gap-x-2">
+            <span className="text-white/50">{t('fileManager.details.type')}:</span>
+            <span className="text-white/90">{node.type}</span>
+            <span className="text-white/50">{t('fileManager.details.owner')}:</span>
+            <span className="text-white/90">{node.owner}</span>
+            <span className="text-white/50">{t('fileManager.details.permissions')}:</span>
+            <span className="text-white/90 font-mono text-[11px]">{node.permissions || t('a11y.common.notAvailable')}</span>
+            <span className="text-white/50">{t('fileManager.details.modified')}:</span>
+            <span className="text-white/90">{modDate}</span>
+            {node.size !== undefined && (
+              <>
+                <span className="text-white/50">{t('fileManager.details.size')}:</span>
+                <span className="text-white/90">{t('fileManager.details.bytes', { count: node.size })}</span>
+              </>
+            )}
+          </div>
+        </div>
+      );
+      notify.system('success', node.name || t('notifications.subtitles.info'), details, t('notifications.subtitles.info'));
+    } else {
+      notify.system('error', t('notifications.subtitles.error'), t('fileManager.toasts.couldNotGetInfo'), t('notifications.subtitles.error'));
+    }
   };
   useEffect(() => {
     const handleMenuAction = (e: CustomEvent) => {
@@ -213,7 +213,7 @@ function DesktopComponent({ onDoubleClick, icons, onUpdateIconsPositions, onIcon
         const idsToMove: string[] = data.ids || [data.id];
 
         idsToMove.forEach(id => {
-           moveNodeById(id, '~/Desktop', undefined, data.sourceUser);
+          moveNodeById(id, '~/Desktop', undefined, data.sourceUser);
         });
       }
     } catch (err) {
@@ -364,7 +364,7 @@ function DesktopComponent({ onDoubleClick, icons, onUpdateIconsPositions, onIcon
           {/* Desktop Icons */}
           {icons.map((icon) => (
             <ContextMenu key={icon.id}>
-             <ContextMenuTrigger asChild>
+              <ContextMenuTrigger asChild>
                 <DesktopIconItem
                   icon={icon}
                   selected={selectedIcons.has(icon.id)}
@@ -378,29 +378,29 @@ function DesktopComponent({ onDoubleClick, icons, onUpdateIconsPositions, onIcon
                   onDragEnd={handleDragEnd}
                   onDoubleClick={onIconDoubleClick}
                 />
-             </ContextMenuTrigger>
-             <ContextMenuContent className="w-48">
+              </ContextMenuTrigger>
+              <ContextMenuContent className="w-48">
                 <ContextMenuItem onClick={() => onIconDoubleClick(icon.id)}>
-                    <FolderOpen className="mr-2 h-4 w-4" /> {t('menubar.items.open') || 'Open'}
+                  <FolderOpen className="mr-2 h-4 w-4" /> {t('menubar.items.open') || 'Open'}
                 </ContextMenuItem>
                 <ContextMenuItem onClick={() => handleCopy(icon.id)}>
-                    <Copy className="mr-2 h-4 w-4" /> {t('menubar.items.copy') || 'Copy'} <ContextMenuShortcut>⌘C</ContextMenuShortcut>
+                  <Copy className="mr-2 h-4 w-4" /> {t('menubar.items.copy') || 'Copy'} <ContextMenuShortcut>⌘C</ContextMenuShortcut>
                 </ContextMenuItem>
                 <ContextMenuItem onClick={() => handleCut(icon.id)}>
-                    <Scissors className="mr-2 h-4 w-4" /> {t('menubar.items.cut') || 'Cut'} <ContextMenuShortcut>⌘X</ContextMenuShortcut>
+                  <Scissors className="mr-2 h-4 w-4" /> {t('menubar.items.cut') || 'Cut'} <ContextMenuShortcut>⌘X</ContextMenuShortcut>
                 </ContextMenuItem>
                 <ContextMenuSeparator />
                 <ContextMenuItem onClick={() => handleGetInfo(icon.name)}>
-                    <Info className="mr-2 h-4 w-4" /> {t('menubar.items.getInfo') || 'Get Info'}
+                  <Info className="mr-2 h-4 w-4" /> {t('menubar.items.getInfo') || 'Get Info'}
                 </ContextMenuItem>
                 <ContextMenuSeparator />
-                <ContextMenuItem 
-                    onClick={() => handleMoveToTrash(icon.name)}
-                    className="text-red-400 focus:text-red-400 focus:bg-red-500/20"
+                <ContextMenuItem
+                  onClick={() => handleMoveToTrash(icon.name)}
+                  className="text-red-400 focus:text-red-400 focus:bg-red-500/20"
                 >
-                    <Trash2 className="mr-2 h-4 w-4" /> {t('menubar.items.moveToTrash') || 'Move to Trash'}
+                  <Trash2 className="mr-2 h-4 w-4" /> {t('menubar.items.moveToTrash') || 'Move to Trash'}
                 </ContextMenuItem>
-             </ContextMenuContent>
+              </ContextMenuContent>
             </ContextMenu>
           ))}
         </div>
@@ -409,7 +409,7 @@ function DesktopComponent({ onDoubleClick, icons, onUpdateIconsPositions, onIcon
         {renderContextMenuItems(
           desktopContextMenu.map(item => {
             if (item.type === 'item' && item.action === 'paste') {
-               return { ...item, disabled: clipboard.items.length === 0 };
+              return { ...item, disabled: clipboard.items.length === 0 };
             }
             return item;
           }),

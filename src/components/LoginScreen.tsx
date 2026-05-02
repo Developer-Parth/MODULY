@@ -9,7 +9,7 @@ import { useI18n } from '@/i18n/index';
 import { motion, AnimatePresence } from 'motion/react';
 import nebulaWallpaper from '@/assets/images/wallpaper-nebula.avif';
 import cityWallpaper from '@/assets/images/wallpaper-city.avif';
-import relicWallpaper from '@/assets/images/wallpaper-aurora.avif';
+import relicWallpaper from '@/assets/images/wallpaper-moduly.avif';
 import lakeWallpaper from '@/assets/images/wallpaper-lake.avif';
 import modiWallpaper from '@/assets/images/images.jpeg';
 
@@ -20,12 +20,12 @@ export function LoginScreen() {
 
     // Map wallpaper config to actual image
     const WALLPAPERS: Record<string, string> = {
-      default: modiWallpaper,
-      rally: modiWallpaper,
-      nebula: nebulaWallpaper,
-      city: cityWallpaper,
-      relic: relicWallpaper,
-      lake: lakeWallpaper,
+        default: modiWallpaper,
+        rally: modiWallpaper,
+        nebula: nebulaWallpaper,
+        city: cityWallpaper,
+        relic: relicWallpaper,
+        lake: lakeWallpaper,
     };
     const bgImage = WALLPAPERS[wallpaper] || WALLPAPERS.default;
 
@@ -48,7 +48,7 @@ export function LoginScreen() {
         try {
             setIsLoggingIn(true);
             setError(false);
-            
+
             // Add a small artificial delay for the smooth animation effect
             await new Promise(resolve => setTimeout(resolve, 800));
 
@@ -95,7 +95,7 @@ export function LoginScreen() {
     };
 
     return (
-        <div 
+        <div
             className="fixed inset-0 z-[50000] flex flex-col items-center justify-center overflow-hidden bg-cover bg-center transition-[background-image] duration-1000"
             style={{ backgroundImage: `url(${bgImage})` }}
         >
@@ -104,9 +104,9 @@ export function LoginScreen() {
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/60 pointer-events-none" />
 
             <div className="relative z-10 w-full max-w-md flex flex-col items-center">
-                
+
                 {/* Main Glass Panel */}
-                <motion.div 
+                <motion.div
                     layout
                     initial={{ opacity: 0, y: 30, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -119,7 +119,7 @@ export function LoginScreen() {
 
                     <AnimatePresence mode="wait">
                         {!selectedUser ? (
-                            <motion.div 
+                            <motion.div
                                 key="user-list"
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -166,7 +166,7 @@ export function LoginScreen() {
                                 </div>
                             </motion.div>
                         ) : (
-                            <motion.div 
+                            <motion.div
                                 key="password-input"
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -174,7 +174,7 @@ export function LoginScreen() {
                                 transition={{ duration: 0.3 }}
                                 className="w-full flex flex-col items-center"
                             >
-                                <motion.div 
+                                <motion.div
                                     layoutId="avatar"
                                     className="relative mb-6"
                                 >
@@ -185,7 +185,7 @@ export function LoginScreen() {
 
                                 <h2 className="text-2xl font-semibold text-white mb-1">{selectedUser.fullName}</h2>
                                 <p className="text-white/50 text-sm mb-8 text-center px-4">
-                                    {hasSavedSession(selectedUser.username) 
+                                    {hasSavedSession(selectedUser.username)
                                         ? t('login.restoringPreviousSession') || 'Restoring previous session...'
                                         : t('login.enterPasswordToUnlock') || 'Enter your password to unlock'}
                                 </p>
@@ -213,7 +213,7 @@ export function LoginScreen() {
                                     />
                                     <AnimatePresence>
                                         {error && (
-                                            <motion.p 
+                                            <motion.p
                                                 initial={{ opacity: 0, y: -10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0 }}
@@ -256,7 +256,7 @@ export function LoginScreen() {
                                             <Loader2 className="w-5 h-5 animate-spin" />
                                         ) : (
                                             <span className="flex items-center gap-2">
-                                                {t('login.enterSystem') || 'Unlock'} 
+                                                {t('login.enterSystem') || 'Unlock'}
                                                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                             </span>
                                         )}
