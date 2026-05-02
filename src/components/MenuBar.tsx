@@ -74,17 +74,17 @@ function MenuBarComponent({ focusedApp, onOpenApp }: MenuBarProps) {
         hour: '2-digit',
         minute: '2-digit',
         hour12: false,
-        timeZone: timeMode === 'server' ? 'UTC' : undefined
+        timeZone: timeMode === 'server' ? 'Asia/Kolkata' : undefined
       };
 
       const dateOptions: Intl.DateTimeFormatOptions = {
         weekday: 'short',
         month: 'short',
         day: 'numeric',
-        timeZone: timeMode === 'server' ? 'UTC' : undefined
+        timeZone: timeMode === 'server' ? 'Asia/Kolkata' : undefined
       };
 
-      setCurrentTime(now.toLocaleTimeString(locale, options) + (timeMode === 'server' ? ' UTC' : ''));
+      setCurrentTime(now.toLocaleTimeString(locale, options) + (timeMode === 'server' ? ' IST' : ''));
       setCurrentDate(now.toLocaleDateString(locale, dateOptions));
     };
 
