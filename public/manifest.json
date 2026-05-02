@@ -1,0 +1,17 @@
+{
+  "name": "MODULY",
+  "short_name": "MODULY",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "description": "A private hackathon desktop simulator with a MODULY skin.",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png"
+    }
+  ]
+}
