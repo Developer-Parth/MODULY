@@ -2,7 +2,6 @@ import { Trash, Trash2, Grid, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect, useMemo, memo } from 'react';
 import type { WindowState } from '@/hooks/useWindowManager';
-import { useThemeColors } from '@/hooks/useThemeColors';
 import { useAppContext } from '@/components/AppContext';
 import { useFileSystem } from '@/components/FileSystemContext';
 import { useI18n } from '@/i18n/index';

@@ -11,7 +11,6 @@ import { Rnd } from "react-rnd";
 import type { WindowState } from "../hooks/useWindowManager";
 import { useAppContext } from "./AppContext";
 import { WindowContext } from "./WindowContext";
-import { useThemeColors } from "../hooks/useThemeColors";
 import { cn } from "./ui/utils";
 import {
   ContextMenu,

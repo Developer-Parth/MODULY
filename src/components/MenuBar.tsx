@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect, memo } from 'react';
 import pkg from '../../package.json';
 import { Orbit } from 'lucide-react';
-import { useThemeColors } from '@/hooks/useThemeColors';
 import { useFullscreen } from '@/hooks/useFullscreen';
 import { CreditsDrawer } from '@/components/Credits/CreditsDrawer';
 import { cn } from '@/components/ui/utils';
