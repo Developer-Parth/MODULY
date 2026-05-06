@@ -232,7 +232,7 @@ export function NetworkProvider({ children }: { children: ReactNode }) {
     return () => clearInterval(interval);
   }, [wifiEnabled]);
 
-  const scanNetworks = useCallback(() => {
+  const scanNetworks = useCallback(async () => {
     setIsScanning(true);
     // Simulate scan delay
     setTimeout(() => {
@@ -241,7 +241,7 @@ export function NetworkProvider({ children }: { children: ReactNode }) {
     }, 1500);
   }, [generateNetworks]);
 
-  const connectToNetwork = useCallback((ssid: string) => {
+  const connectToNetwork = useCallback(async (ssid: string): Promise<boolean> => {
     setWifiEnabled(true);
     setWifiNetwork(ssid);
 
@@ -260,9 +260,10 @@ export function NetworkProvider({ children }: { children: ReactNode }) {
         return next;
       });
     }
+    return true;
   }, [setWifiEnabled, setWifiNetwork, availableNetworks]);
 
-  const disconnect = useCallback(() => {
+  const disconnect = useCallback(async (): Promise<void> => {
     setWifiNetwork('');
     resetSessionDataUsage();
   }, [setWifiNetwork]);

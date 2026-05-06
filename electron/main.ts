@@ -306,7 +306,7 @@ ipcMain.handle('scan-wifi-networks', async () => {
         
         // Scan networks on first interface (type-cast to accommodate potential typing variations)
         const networks = await (si as any).wifiNetworks(interfaces[0]?.iface);
-        return networks.map(n => ({
+        return networks.map((n: any) => ({
             ssid: n.ssid,
             signalLevel: n.signalLevel,
             quality: Math.min(100, Math.max(0, (n.signalLevel + 100) * 2)),
