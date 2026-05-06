@@ -28,10 +28,10 @@ interface Article {
 const articles: Article[] = [
   {
     id: 1,
-    title: 'MODULY 0.8.5: Security Hardening & The Polish Pass',
+    title: 'MODULY 0.0.1: Security Hardening & The Polish Pass',
     excerpt: 'The latest update brings critical security fixes, 100% localization parity across 12 languages, and a massive UI overhaul for the DevCenter.',
     author: 'MODULY',
-    date: 'January 30, 2026',
+    date: 'May 2, 2026',
     category: 'Changelog',
     icon: Shield,
     color: 'text-indigo-600',
@@ -44,7 +44,7 @@ const articles: Article[] = [
     content: `
       <div class="space-y-6">
         <p class="text-xl text-gray-600 leading-relaxed font-light">
-          We're excited to announce <strong class="text-gray-900 font-medium">MODULY 0.8.5</strong>, a release focused on stability, security, and refining the core experience. While our previous updates introduced major apps like Photos and Messages, this patch ensures the foundation is rock-solid.
+          We're excited to announce <strong class="text-gray-900 font-medium">MODULY 0.0.1</strong>, a release focused on stability, security, and refining the core experience. While our previous updates introduced major apps like Photos and Messages, this patch ensures the foundation is rock-solid.
         </p>
 
         <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Security First</h3>

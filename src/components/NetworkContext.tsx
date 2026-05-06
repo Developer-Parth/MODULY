@@ -97,9 +97,9 @@ export interface NetworkContextType {
   currentNetwork: string;
   availableNetworks: Network[];
   isScanning: boolean;
-  scanNetworks: () => void;
-  connectToNetwork: (ssid: string) => void;
-  disconnect: () => void;
+  scanNetworks: () => Promise<void>;
+  connectToNetwork: (ssid: string) => Promise<boolean>;
+  disconnect: () => Promise<void>;
 }
 
 const NetworkContext = createContext<NetworkContextType | undefined>(undefined);
@@ -137,7 +137,7 @@ export function NetworkProvider({ children }: { children: ReactNode }) {
   // Generate initial mock networks
   const generateNetworks = useCallback(() => {
     // Always include the currently connected network if wifi is enabled and we have one
-    const connectedSsid = wifiEnabled ? wifiNetwork : null;
+    const connectedSsid = wifiEnabled && wifiNetwork ? wifiNetwork : '';
     const currentKnown = { ...knownNetworks }; // Local copy for this generation cycle
 
     // Select random networks

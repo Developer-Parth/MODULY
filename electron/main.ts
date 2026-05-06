@@ -180,6 +180,7 @@ function createWindow() {
             contextIsolation: true,
             nodeIntegration: false,
             sandbox: false,
+            webviewTag: true, // Enable webview tag for browser functionality
         },
     });
 
@@ -298,28 +299,80 @@ ipcMain.handle('get-battery', async () => {
     }
 });
 
-ipcMain.handle('check-connection', async () => {
+ipcMain.handle('scan-wifi-networks', async () => {
     try {
-        // 1. Primary Check: System Information (Ping Google DNS 8.8.8.8)
-        const systemLatency = await si.inetLatency('8.8.8.8');
-
-        // 2. Secondary Check / Traffic Generation: Caravane Digital
-        let caravaneLatency: number | null = null;
-        try {
-            const start = Date.now();
-            const response = await fetch('https://caravane.digital/favicon.ico', { signal: AbortSignal.timeout(2000) });
-            if (response.ok) {
-                caravaneLatency = Date.now() - start;
-            }
-        } catch (e) {
-            // Ignore secondary failure
-        }
-
-        return {
-            system: systemLatency,
-            caravane: caravaneLatency
-        };
+        const interfaces = await si.wifiInterfaces();
+        if (interfaces.length === 0) return [];
+        
+        // Scan networks on first interface (type-cast to accommodate potential typing variations)
+        const networks = await (si as any).wifiNetworks(interfaces[0]?.iface);
+        return networks.map(n => ({
+            ssid: n.ssid,
+            signalLevel: n.signalLevel,
+            quality: Math.min(100, Math.max(0, (n.signalLevel + 100) * 2)),
+            security: n.security.join(', '),
+            channel: n.channel,
+            frequency: n.frequency
+        }));
     } catch (error) {
+        console.error('[Electron] WiFi scan failed:', error);
+        return [];
+    }
+});
+
+ipcMain.handle('connect-to-wifi', async (_, ssid: string) => {
+    try {
+        // This is a simulation - in a real app you would use
+        // system tools (like nmcli on Linux) to connect
+        console.log(`[Electron] Connecting to WiFi: ${ssid}`);
+        
+        // Simulate connection delay
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        return true; // Success
+    } catch (error) {
+        console.error(`[Electron] WiFi connection failed to ${ssid}:`, error);
+        return false;
+    }
+});
+
+ipcMain.handle('disconnect-wifi', async () => {
+    try {
+        console.log('[Electron] Disconnecting from WiFi');
+        // Simulate disconnection delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return true;
+    } catch (error) {
+        console.error('[Electron] WiFi disconnection failed:', error);
+        return false;
+    }
+});
+
+ipcMain.handle('check-connection', async () => {
+        try {
+            // 1. Primary Check: System Information (Ping Google DNS 8.8.8.8)
+            const systemLatency = await si.inetLatency('8.8.8.8');
+
+            // 2. Secondary Check / Traffic Generation: Caravane Digital
+            let caravaneLatency: number | null = null;
+            try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 2000);
+                const start = Date.now();
+                const response = await fetch('https://caravane.digital/favicon.ico', { signal: controller.signal });
+                if (response.ok) {
+                    caravaneLatency = Date.now() - start;
+                }
+                clearTimeout(timeout);
+            } catch (e) {
+                // Ignore secondary failure
+            }
+
+            return {
+                system: systemLatency,
+                caravane: caravaneLatency
+            };
+        } catch (error) {
         console.error('[Electron] Connection check failed:', error);
         return null;
     }
