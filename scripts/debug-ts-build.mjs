@@ -4,10 +4,11 @@ import { execSync } from "node:child_process";
 const endpoint = "http://127.0.0.1:7715/ingest/daa11eb7-cc03-4a10-8fbf-ea248b43b7a4";
 const sessionId = "180cda";
 const runId = `build-${Date.now()}`;
+const pendingLogs = [];
 
 const sendLog = (hypothesisId, location, message, data = {}) => {
     // #region agent log
-    fetch(endpoint, {
+    const request = fetch(endpoint, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -23,6 +24,7 @@ const sendLog = (hypothesisId, location, message, data = {}) => {
             timestamp: Date.now()
         })
     }).catch(() => {});
+    pendingLogs.push(request);
     // #endregion
 };
 
@@ -65,3 +67,19 @@ sendLog("H3", "scripts/debug-ts-build.mjs:57", "Potential TypeScript flags from 
     npmConfigArgv: process.env.npm_config_argv ?? null,
     npmLifecycleScript: process.env.npm_lifecycle_script ?? null
 });
+
+let dateFnsVersion = "unknown";
+try {
+    const pkgRaw = readFileSync("node_modules/date-fns/package.json", "utf8");
+    dateFnsVersion = JSON.parse(pkgRaw).version ?? "unknown";
+} catch {
+    dateFnsVersion = "missing-package-json";
+}
+
+sendLog("H4", "scripts/debug-ts-build.mjs:71", "date-fns package integrity checks", {
+    dateFnsVersion,
+    hasIndexMjs: existsSync("node_modules/date-fns/index.mjs"),
+    hasMillisecondsToSecondsMjs: existsSync("node_modules/date-fns/millisecondsToSeconds.mjs")
+});
+
+await Promise.allSettled(pendingLogs);
