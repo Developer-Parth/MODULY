@@ -135,6 +135,7 @@
       "scripts": {
             "dev": "vite",
             "lint": "eslint .",
+            "prebuild": "node scripts/debug-ts-build.mjs",
             "build": "tsc && vite build",
             "preview": "vite preview",
             "ts:electron": "tsc -p tsconfig.electron.json && npm run copy:electron-assets",
