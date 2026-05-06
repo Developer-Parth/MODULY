@@ -583,7 +583,7 @@ export function Calendar({ owner }: CalendarProps) {
     const weeks: Date[][] = [];
     let daysInWeek: Date[] = [];
 
-    days.forEach(day => {
+    days.forEach((day: Date) => {
       daysInWeek.push(day);
       if (daysInWeek.length === 7) {
         weeks.push(daysInWeek);
@@ -1597,4 +1597,3 @@ export function Calendar({ owner }: CalendarProps) {
     </div>
   );
 }
-
